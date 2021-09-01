@@ -1,8 +1,29 @@
-<form name='form1' action="controllerForm" method="POST">
-    <input type="hidden" name="id" id="id" placeholder="Id:">
-    <input type="text" name="name" id="name" placeholder="Nome:">
-    <input type="text" name="email" id="email" placeholder="Email: ">
-    {{!-- <input type="date" name="dtaNascimento" id="dtaNascimento" placeholder="Data de Nascimento: "> --}}
-    <input type="text" name="sexo" id="sexo" placeholder="Sexo: ">
-    <input type="submit" name="btnSubmit" id="btnSubmit" placeholder="Add">
-</form>
+<div class="card mt-5 " style="width: 50rem;">
+    <div class="card-body">
+        <h5 class="card-title">Cadastro de Clientes</h5>
+        <form name='form1' action="controllerForm" method="POST">
+            <div class="row">
+                <input type="hidden" name="id" id="id" placeholder="Id:">
+                <div class="col">
+                    <input type="text" name="Nome" id="nome" placeholder="Nome:">
+                </div>
+                <div class="col">
+                    <input type="text" name="Email" id="email" placeholder="Email: ">
+                </div>
+                <div>
+                    <Select name="Sexo" id="sexo">
+                        <option>Sexo</option>
+                        <option value="M">M</option>
+                        <option value="F">F</option>
+                    </Select>
+                </div>
+                <div class="col">
+                    <input type="submit" name="btnSubmit" id="btnSubmit" placeholder="Add">
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+</div>
