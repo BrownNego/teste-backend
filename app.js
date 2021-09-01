@@ -120,7 +120,7 @@ app.get("/select/:id?", function (req, res) {
                     WHERE id(n) = $id 
                     RETURN n`,
                 {
-                    id: req.body.id
+                    id: req.params.id
 
                 })
 
@@ -137,8 +137,6 @@ app.get("/select/:id?", function (req, res) {
                     // console.log(record._fields[0].properties);
                 });
 
-                console.log(clientes)
-
                 res.render('select', {
 
                     clientes: clientes
@@ -150,6 +148,58 @@ app.get("/select/:id?", function (req, res) {
 
     }
 });
+
+//DELETE
+app.get("/deletar/:id", function (req, res) {
+    session
+        .run(`use crud 
+                MATCH (n:Cliente)
+                WHERE id(n) = $id
+                DETACH DELETE n`,
+            {
+                id: req.params.id
+            })
+        .then(function (result) {
+            result.records.forEach(function (record) {
+                console.log(record._fields[0].properties);
+            })
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+
+    res.render('deletar')
+})
+
+//UPDATE
+app.get("/update/:id", urlencodeParser, function (req, res) {
+    res.render('update', { id: req.params.id })
+})
+app.post("/controllerUpdate", urlencodeParser, function (req, res) {
+    session
+        .run(`use crud 
+                MATCH (c:Cliente)
+                WHERE id(c) = $id
+                SET c.Nome = $nome
+                SET c.Email = $email
+                SET c.Sexo = $sexo
+                RETURN c`,
+            {
+                id: req.params.id,
+                nome: req.body.Nome,
+                email: req.body.Email,
+                sexo: req.body.Sexo
+            })
+        .then(function (result) {
+            result.records.forEach(function (record) {
+                // console.log(record._fields[0].properties);
+            });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+
+})
 
 
 //Start Server
